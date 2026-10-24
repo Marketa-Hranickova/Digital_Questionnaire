@@ -1,0 +1,1981 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "nei-vfq25-de-at",
+  "url": "http://example.org/4health/Questionnaire/nei-vfq25-de-at",
+  "version": "2000-de-AT-2015-06-03+4health.0.1",
+  "name": "NEI_VFQ25_DE_AT",
+  "title": "National Eye Institute Fragebogen zum Sehvermögen – 25 (VFQ-25)",
+  "status": "draft",
+  "language": "de-AT",
+  "subjectType": [
+    "Patient"
+  ],
+  "description": "Digital, self-administered adaptation of the NEI VFQ-25 Version 2000 (interviewer version, German for Austria, validated translation 03 June 2015). All modifications versus the paper form are marked with a modification-note extension, as required by the RAND license terms.",
+  "copyright": "The NEI VFQ-25 was developed at RAND under the sponsorship of the National Eye Institute. © RAND 1996. Changes to the NEI VFQ-25 made by the 4Health team are identified in this resource.",
+  "item": [
+    {
+      "linkId": "intro",
+      "type": "display",
+      "text": "Im Folgenden finden Sie einige Aussagen zu Problemen, die Ihr Sehvermögen betreffen, und Aussagen darüber, was Sie über den Zustand Ihres Sehvermögens denken. Wählen Sie zu jeder Frage die Antwort, die Ihren Zustand am besten beschreibt.\n\nFalls Sie eine Brille oder Kontaktlinsen haben, beantworten Sie alle Fragen bitte so, als ob Sie diese tragen würden.\n\nBitte nehmen Sie sich für die Beantwortung der Fragen soviel Zeit, wie Sie brauchen. Alle Ihre Antworten werden vertraulich behandelt.",
+      "_text": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+            "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Im Folgenden finden Sie einige Aussagen zu Problemen, die Ihr Sehvermögen betreffen, und Aussagen darüber, was Sie über den Zustand Ihres Sehvermögens denken. Wählen Sie zu jeder Frage die Antwort, die Ihren Zustand am besten beschreibt.<br/><br/>Falls Sie eine Brille oder Kontaktlinsen haben, beantworten Sie alle Fragen bitte so, als ob Sie diese tragen würden.<br/><br/>Bitte nehmen Sie sich für die Beantwortung der Fragen soviel Zeit, wie Sie brauchen. Alle Ihre Antworten werden vertraulich behandelt.</div>"
+          },
+          {
+            "url": "http://example.org/4health/StructureDefinition/original-text",
+            "valueString": "Ich möchte Ihnen jetzt einige Aussagen zu Problemen vorlesen, die Ihr Sehvermögen betreffen und Aussagen darüber, was Sie über den Zustand Ihres Sehvermögens denken. Nach jeder Frage werde ich Ihnen eine Reihe von Antwortmöglichkeiten vorlesen. Wählen Sie zu jeder Frage die Antwort, die Ihren Zustand am besten beschreibt. [...]"
+          },
+          {
+            "url": "http://example.org/4health/StructureDefinition/modification-note",
+            "valueString": "Interviewer instructions rewritten for self-administration. MUST be checked against the official self-administered German version before clinical use."
+          }
+        ]
+      }
+    },
+    {
+      "linkId": "part1",
+      "type": "group",
+      "text": "Teil 1 – Allgemeine Gesundheit und Sehvermögen",
+      "item": [
+        {
+          "linkId": "q01",
+          "prefix": "1.",
+          "type": "choice",
+          "required": true,
+          "text": "Wie würden Sie Ihren Gesundheitszustand im Allgemeinen beschreiben?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Wie würden Sie Ihren <u>Gesundheitszustand</u> im <u>Allgemeinen</u> beschreiben?</div>"
+              },
+              {
+                "url": "http://example.org/4health/StructureDefinition/modification-note",
+                "valueString": "Skip this item when the VFQ-25 is administered together with the SF-36 (see footnote on the paper form)."
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Ausgezeichnet"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Sehr gut"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Gut"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Weniger gut"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Schlecht"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "q02",
+          "prefix": "2.",
+          "type": "choice",
+          "required": true,
+          "text": "Wie ist Ihr Sehvermögen zur Zeit, wenn Sie beide Augen benutzen (mit Brille oder Kontaktlinsen, falls Sie welche tragen)? Ist es ausgezeichnet, gut, weniger gut, schlecht oder sehr schlecht, oder sind Sie vollkommen blind?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Wie ist Ihr Sehvermögen zur Zeit, wenn Sie beide Augen benutzen (mit Brille oder Kontaktlinsen, falls Sie welche tragen)? Ist es <u>ausgezeichnet</u>, <u>gut</u>, <u>weniger gut</u>, <u>schlecht</u> oder <u>sehr schlecht</u>, oder sind Sie <u>vollkommen blind</u>?</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Ausgezeichnet"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Gut"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Weniger Gut"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Schlecht"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Sehr schlecht"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "6",
+                "display": "Vollkommen blind"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "q03",
+          "prefix": "3.",
+          "type": "choice",
+          "required": true,
+          "text": "Wie oft machen Sie sich Sorgen um Ihr Sehvermögen?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Wie oft machen Sie sich <u>Sorgen</u> um Ihr Sehvermögen?</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Nie"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Selten"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Manchmal"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Meistens"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Immer"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "q04",
+          "prefix": "4.",
+          "type": "choice",
+          "required": true,
+          "text": "Wie intensive/starke Schmerzen oder Beschwerden in Ihren oder um Ihre Augen (zum Beispiel Brennen oder Jucken) haben sie?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Wie intensive/starke <u>Schmerzen oder Beschwerden in Ihren oder um Ihre Augen</u> (zum Beispiel Brennen oder Jucken) haben sie?</div>"
+              },
+              {
+                "url": "http://example.org/4health/StructureDefinition/original-text",
+                "valueString": "... haben sie? Würden Sie sagen:"
+              },
+              {
+                "url": "http://example.org/4health/StructureDefinition/modification-note",
+                "valueString": "Removed interviewer phrase 'Würden Sie sagen:' for self-administration."
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Keine"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Leichte"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Mäßige"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Starke"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Sehr starke"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "part2",
+      "type": "group",
+      "text": "Teil 2 – Schwierigkeiten bei Alltagstätigkeiten",
+      "item": [
+        {
+          "linkId": "part2-intro",
+          "type": "display",
+          "text": "In den nächsten Fragen geht es darum, wie schwierig bestimmte Tätigkeiten für Sie sind (mit Brille oder Kontaktlinsen, falls Sie diese dabei tragen).",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">In den nächsten Fragen geht es darum, wie schwierig bestimmte Tätigkeiten für Sie sind (mit Brille oder Kontaktlinsen, falls Sie diese dabei tragen).</div>"
+              }
+            ]
+          }
+        },
+        {
+          "linkId": "q05",
+          "prefix": "5.",
+          "type": "choice",
+          "required": true,
+          "text": "Wie schwierig ist es für Sie, normale Schrift in Zeitungen zu lesen?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Wie schwierig ist es für Sie, <u>normale Schrift in Zeitungen zu lesen</u>?</div>"
+              },
+              {
+                "url": "http://example.org/4health/StructureDefinition/original-text",
+                "valueString": "Würden Sie sagen:"
+              },
+              {
+                "url": "http://example.org/4health/StructureDefinition/modification-note",
+                "valueString": "Removed interviewer phrase 'Würden Sie sagen:' for self-administration."
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Überhaupt nicht schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Ein bisschen schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Mäßig schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Sehr schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Habe wegen meines Sehvermögens damit aufgehört"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "6",
+                "display": "Habe aus anderen Gründen damit aufgehört oder habe kein Interesse daran"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "q06",
+          "prefix": "6.",
+          "type": "choice",
+          "required": true,
+          "text": "Wie schwierig ist es für Sie, Arbeiten auszuführen oder Hobbys nachzugehen, die es erfordern, in der Nähe gut zu sehen, z.B. Kochen, Nähen, Dinge im Haus reparieren oder Werkzeuge benutzen?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Wie schwierig ist es für Sie, Arbeiten auszuführen oder Hobbys nachzugehen, die es erfordern, <u>in der Nähe gut zu sehen</u>, z.B. Kochen, Nähen, Dinge im Haus reparieren oder Werkzeuge benutzen?</div>"
+              },
+              {
+                "url": "http://example.org/4health/StructureDefinition/original-text",
+                "valueString": "Würden Sie sagen:"
+              },
+              {
+                "url": "http://example.org/4health/StructureDefinition/modification-note",
+                "valueString": "Removed interviewer phrase 'Würden Sie sagen:' for self-administration."
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Überhaupt nicht schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Ein bisschen schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Mäßig schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Sehr schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Habe wegen meines Sehvermögens damit aufgehört"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "6",
+                "display": "Habe aus anderen Gründen damit aufgehört oder habe kein Interesse daran"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "q07",
+          "prefix": "7.",
+          "type": "choice",
+          "required": true,
+          "text": "Wie schwierig ist es wegen Ihres Sehvermögens für Sie, auf einem vollen Regal etwas zu finden?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Wie schwierig ist es wegen Ihres Sehvermögens für Sie, <u>auf einem vollen Regal etwas zu finden</u>?</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Überhaupt nicht schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Ein bisschen schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Mäßig schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Sehr schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Habe wegen meines Sehvermögens damit aufgehört"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "6",
+                "display": "Habe aus anderen Gründen damit aufgehört oder habe kein Interesse daran"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "q08",
+          "prefix": "8.",
+          "type": "choice",
+          "required": true,
+          "text": "Wie schwierig ist es für Sie, Straßenschilder oder Namen von Geschäften zu lesen?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Wie schwierig ist es für Sie, <u>Straßenschilder oder Namen von Geschäften zu lesen</u>?</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Überhaupt nicht schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Ein bisschen schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Mäßig schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Sehr schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Habe wegen meines Sehvermögens damit aufgehört"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "6",
+                "display": "Habe aus anderen Gründen damit aufgehört oder habe kein Interesse daran"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "q09",
+          "prefix": "9.",
+          "type": "choice",
+          "required": true,
+          "text": "Wie schwierig ist es wegen Ihres Sehvermögens für Sie, bei trübem Licht oder bei Nacht Stufen, Treppen oder Gehsteigkanten hinunter zu steigen?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Wie schwierig ist es wegen Ihres Sehvermögens für Sie, <u>bei trübem Licht oder bei Nacht Stufen, Treppen oder Gehsteigkanten hinunter zu steigen</u>?</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Überhaupt nicht schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Ein bisschen schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Mäßig schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Sehr schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Habe wegen meines Sehvermögens damit aufgehört"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "6",
+                "display": "Habe aus anderen Gründen damit aufgehört oder habe kein Interesse daran"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "q10",
+          "prefix": "10.",
+          "type": "choice",
+          "required": true,
+          "text": "Wie schwierig ist es wegen Ihres Sehvermögens für Sie, Dinge, die sich seitlich von Ihnen befinden, im Vorbeigehen zu erkennen?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Wie schwierig ist es wegen Ihres Sehvermögens für Sie, <u>Dinge, die sich seitlich von Ihnen befinden, im Vorbeigehen zu erkennen</u>?</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Überhaupt nicht schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Ein bisschen schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Mäßig schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Sehr schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Habe wegen meines Sehvermögens damit aufgehört"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "6",
+                "display": "Habe aus anderen Gründen damit aufgehört oder habe kein Interesse daran"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "q11",
+          "prefix": "11.",
+          "type": "choice",
+          "required": true,
+          "text": "Wie schwierig ist es wegen Ihres Sehvermögens für Sie, zu sehen, wie andere Menschen auf das, was Sie sagen reagieren?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Wie schwierig ist es wegen Ihres Sehvermögens für Sie, <u>zu sehen</u>, <u>wie andere Menschen</u> auf das, was Sie sagen <u>reagieren</u>?</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Überhaupt nicht schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Ein bisschen schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Mäßig schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Sehr schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Habe wegen meines Sehvermögens damit aufgehört"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "6",
+                "display": "Habe aus anderen Gründen damit aufgehört oder habe kein Interesse daran"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "q12",
+          "prefix": "12.",
+          "type": "choice",
+          "required": true,
+          "text": "Wie schwierig ist es wegen Ihres Sehvermögens für Sie, Ihre Kleidung selbst herauszusuchen und passend zusammenzustellen?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Wie schwierig ist es wegen Ihres Sehvermögens für Sie, <u>Ihre Kleidung selbst herauszusuchen und passend zusammenzustellen</u>?</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Überhaupt nicht schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Ein bisschen schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Mäßig schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Sehr schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Habe wegen meines Sehvermögens damit aufgehört"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "6",
+                "display": "Habe aus anderen Gründen damit aufgehört oder habe kein Interesse daran"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "q13",
+          "prefix": "13.",
+          "type": "choice",
+          "required": true,
+          "text": "Wie schwierig ist es wegen Ihres Sehvermögens für Sie, andere Menschen zu Hause zu besuchen oder sich mit ihnen auf Partys oder in Restaurants zu treffen?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Wie schwierig ist es wegen Ihres Sehvermögens für Sie, <u>andere Menschen zu Hause zu besuchen oder sich mit ihnen auf Partys oder in Restaurants zu treffen</u>?</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Überhaupt nicht schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Ein bisschen schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Mäßig schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Sehr schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Habe wegen meines Sehvermögens damit aufgehört"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "6",
+                "display": "Habe aus anderen Gründen damit aufgehört oder habe kein Interesse daran"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "q14",
+          "prefix": "14.",
+          "type": "choice",
+          "required": true,
+          "text": "Wie schwierig ist es wegen Ihres Sehvermögens für Sie, auszugehen, um sich Filme, Theaterstücke oder Sportveranstaltungen anzusehen?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Wie schwierig ist es wegen Ihres Sehvermögens für Sie, <u>auszugehen</u>, <u>um sich Filme, Theaterstücke oder Sportveranstaltungen anzusehen</u>?</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Überhaupt nicht schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Ein bisschen schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Mäßig schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Sehr schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Habe wegen meines Sehvermögens damit aufgehört"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "6",
+                "display": "Habe aus anderen Gründen damit aufgehört oder habe kein Interesse daran"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "q15",
+          "prefix": "15.",
+          "type": "choice",
+          "required": true,
+          "text": "Jetzt möchte ich Ihnen einige Fragen zum Autolenken stellen. Lenken Sie zurzeit ein Auto (oder ein anderes Fahrzeug), zumindest ab und zu?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Jetzt möchte ich Ihnen einige Fragen zum <u>Autolenken</u> stellen. <u>Lenken Sie zurzeit ein Auto (oder ein anderes Fahrzeug)</u>, zumindest ab und zu?</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Ja"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Nein"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "q15a",
+          "prefix": "15a.",
+          "type": "choice",
+          "required": true,
+          "text": "Haben Sie noch nie ein Auto gelenkt oder lenken Sie nicht mehr?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Haben Sie <u>noch nie</u> ein Auto gelenkt oder lenken Sie <u>nicht mehr</u>?</div>"
+              },
+              {
+                "url": "http://example.org/4health/StructureDefinition/original-text",
+                "valueString": "FALLS NEIN: ..."
+              },
+              {
+                "url": "http://example.org/4health/StructureDefinition/modification-note",
+                "valueString": "Removed condition prefix; the condition is enforced by enableWhen."
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Habe noch nie gelenkt"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Lenke nicht mehr"
+              }
+            }
+          ],
+          "enableWhen": [
+            {
+              "question": "q15",
+              "operator": "=",
+              "answerCoding": {
+                "code": "2"
+              }
+            }
+          ],
+          "enableBehavior": "all"
+        },
+        {
+          "linkId": "q15b",
+          "prefix": "15b.",
+          "type": "choice",
+          "required": true,
+          "text": "Geschah dies hauptsächlich wegen Ihres Sehvermögens, hauptsächlich aus anderen Gründen, oder sowohl wegen Ihres Sehvermögens als auch aus anderen Gründen?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Geschah dies <u>hauptsächlich wegen Ihres Sehvermögens</u>, <u>hauptsächlich aus anderen Gründen</u>, oder <u>sowohl wegen Ihres Sehvermögens als auch aus anderen Gründen</u>?</div>"
+              },
+              {
+                "url": "http://example.org/4health/StructureDefinition/original-text",
+                "valueString": "FALLS SIE DAS AUTOLENKEN AUFGEGEBEN HABEN: ..."
+              },
+              {
+                "url": "http://example.org/4health/StructureDefinition/modification-note",
+                "valueString": "Removed condition prefix; the condition is enforced by enableWhen."
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Hauptsächlich Sehvermögen"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Hauptsächlich andere Gründe"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Sowohl Sehvermögen als auch andere Gründe"
+              }
+            }
+          ],
+          "enableWhen": [
+            {
+              "question": "q15a",
+              "operator": "=",
+              "answerCoding": {
+                "code": "2"
+              }
+            }
+          ],
+          "enableBehavior": "all"
+        },
+        {
+          "linkId": "q15c",
+          "prefix": "15c.",
+          "type": "choice",
+          "required": true,
+          "text": "Wie schwierig ist es für Sie, tagsüber in bekannter Umgebung zu fahren?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Wie schwierig ist es für Sie, <u>tagsüber in bekannter Umgebung zu fahren</u>?</div>"
+              },
+              {
+                "url": "http://example.org/4health/StructureDefinition/original-text",
+                "valueString": "FALLS SIE ZUR ZEIT EIN AUTO LENKEN: ... Würden Sie sagen:"
+              },
+              {
+                "url": "http://example.org/4health/StructureDefinition/modification-note",
+                "valueString": "Removed condition prefix; the condition is enforced by enableWhen. Removed interviewer phrase 'Würden Sie sagen:' for self-administration."
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Überhaupt nicht schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Ein bisschen schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Mäßig schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Sehr schwierig"
+              }
+            }
+          ],
+          "enableWhen": [
+            {
+              "question": "q15",
+              "operator": "=",
+              "answerCoding": {
+                "code": "1"
+              }
+            }
+          ],
+          "enableBehavior": "all"
+        },
+        {
+          "linkId": "q16",
+          "prefix": "16.",
+          "type": "choice",
+          "required": true,
+          "text": "Wie schwierig ist es für Sie, nachts zu lenken?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Wie schwierig ist es für Sie, <u>nachts zu lenken</u>?</div>"
+              },
+              {
+                "url": "http://example.org/4health/StructureDefinition/original-text",
+                "valueString": "Würden Sie sagen:"
+              },
+              {
+                "url": "http://example.org/4health/StructureDefinition/modification-note",
+                "valueString": "Removed interviewer phrase 'Würden Sie sagen:' for self-administration."
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Überhaupt nicht schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Ein bisschen schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Mäßig schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Sehr schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Habe wegen meines Sehvermögens damit aufgehört"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "6",
+                "display": "Habe aus anderen Gründen damit aufgehört oder habe kein Interesse daran"
+              }
+            }
+          ],
+          "enableWhen": [
+            {
+              "question": "q15",
+              "operator": "=",
+              "answerCoding": {
+                "code": "1"
+              }
+            }
+          ],
+          "enableBehavior": "all"
+        },
+        {
+          "linkId": "q16a",
+          "prefix": "16a.",
+          "type": "choice",
+          "required": true,
+          "text": "Wie schwierig ist es für Sie, unter schwierigen Bedingungen zu lenken, wie z.B. bei schlechtem Wetter, zur Hauptverkehrszeit, auf der Autobahn oder im Stadtverkehr?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Wie schwierig ist es für Sie, <u>unter schwierigen Bedingungen zu lenken, wie z.B. bei schlechtem Wetter, zur Hauptverkehrszeit, auf der Autobahn oder im Stadtverkehr</u>?</div>"
+              },
+              {
+                "url": "http://example.org/4health/StructureDefinition/original-text",
+                "valueString": "Würden Sie sagen:"
+              },
+              {
+                "url": "http://example.org/4health/StructureDefinition/modification-note",
+                "valueString": "Removed interviewer phrase 'Würden Sie sagen:' for self-administration."
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Überhaupt nicht schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Ein bisschen schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Mäßig schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Sehr schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Habe wegen meines Sehvermögens damit aufgehört"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "6",
+                "display": "Habe aus anderen Gründen damit aufgehört oder habe kein Interesse daran"
+              }
+            }
+          ],
+          "enableWhen": [
+            {
+              "question": "q15",
+              "operator": "=",
+              "answerCoding": {
+                "code": "1"
+              }
+            }
+          ],
+          "enableBehavior": "all"
+        }
+      ]
+    },
+    {
+      "linkId": "part3",
+      "type": "group",
+      "text": "Teil 3 – Wie Sie auf Ihre Sehprobleme reagieren",
+      "item": [
+        {
+          "linkId": "part3-intro",
+          "type": "display",
+          "text": "In den nächsten Fragen geht es um Einschränkungen auf Grund Ihrer Probleme mit dem Sehvermögen bei Dingen die Sie tun. Bitte geben Sie bei jeder Frage an, ob dies immer, meistens, manchmal, selten oder nie auf Sie zutrifft.",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">In den nächsten Fragen geht es um Einschränkungen auf Grund Ihrer Probleme mit dem Sehvermögen bei Dingen die Sie tun. Bitte geben Sie bei jeder Frage an, ob dies <u>immer</u>, <u>meistens</u>, <u>manchmal</u>, <u>selten</u> oder <u>nie</u> auf Sie zutrifft.</div>"
+              },
+              {
+                "url": "http://example.org/4health/StructureDefinition/original-text",
+                "valueString": "... Bitte sagen Sie mir bei jeder Frage, ob dies immer, meistens, manchmal, selten oder nie auf Sie zutrifft."
+              },
+              {
+                "url": "http://example.org/4health/StructureDefinition/modification-note",
+                "valueString": "'Bitte sagen Sie mir' changed to 'Bitte geben Sie ... an' for self-administration."
+              }
+            ]
+          }
+        },
+        {
+          "linkId": "q17",
+          "prefix": "17.",
+          "type": "choice",
+          "required": true,
+          "text": "Schaffen Sie wegen Ihres Sehvermögens weniger als Sie möchten?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><u>Schaffen Sie</u> wegen Ihres Sehvermögens <u>weniger</u> als Sie möchten?</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Immer"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Meistens"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Manchmal"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Selten"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Nie"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "q18",
+          "prefix": "18.",
+          "type": "choice",
+          "required": true,
+          "text": "Sind Sie wegen Ihres Sehvermögens darin eingeschränkt, wie lange Sie arbeiten oder Ihren Aktivitäten nachgehen können?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><u>Sind Sie</u> wegen Ihres Sehvermögens darin <u>eingeschränkt</u>, wie lange Sie arbeiten oder Ihren Aktivitäten nachgehen können?</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Immer"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Meistens"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Manchmal"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Selten"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Nie"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "q19",
+          "prefix": "19.",
+          "type": "choice",
+          "required": true,
+          "text": "Wie oft hindern Schmerzen oder Beschwerden in Ihren oder um Ihre Augen, z.B. Brennen oder Jucken, Sie daran, zu tun, was Sie gerne tun möchten?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Wie oft hindern Schmerzen oder Beschwerden <u>in Ihren oder um Ihre Augen</u>, z.B. Brennen oder Jucken, Sie daran, zu tun, was Sie gerne tun möchten?</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Immer"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Meistens"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Manchmal"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Selten"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Nie"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "part3b-intro",
+          "type": "display",
+          "text": "Bitte geben Sie bei jeder der folgenden Aussagen an, ob die Aussage für Sie ganz zutrifft, weitgehend zutrifft, weitgehend nicht zutrifft oder überhaupt nicht zutrifft, oder ob Sie sich nicht sicher sind.",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Bitte geben Sie bei jeder der folgenden Aussagen an, ob die Aussage für Sie <u>ganz zutrifft</u>, <u>weitgehend zutrifft</u>, <u>weitgehend nicht zutrifft</u> oder <u>überhaupt nicht zutrifft</u>, oder ob Sie sich <u>nicht sicher</u> sind.</div>"
+              },
+              {
+                "url": "http://example.org/4health/StructureDefinition/original-text",
+                "valueString": "Bitte sagen Sie mir bei jeder der folgenden Aussagen, ..."
+              },
+              {
+                "url": "http://example.org/4health/StructureDefinition/modification-note",
+                "valueString": "'Bitte sagen Sie mir' changed to 'Bitte geben Sie ... an' for self-administration."
+              }
+            ]
+          }
+        },
+        {
+          "linkId": "q20",
+          "prefix": "20.",
+          "type": "choice",
+          "required": true,
+          "text": "Ich bleibe wegen meines Sehvermögens die meiste Zeit zu Hause.",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Ich <u>bleibe</u> wegen meines Sehvermögens <u>die meiste Zeit zu Hause</u>.</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Trifft ganz zu"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Trifft weitgehend zu"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Nicht sicher"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Trifft weitgehend nicht zu"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Trifft überhaupt nicht zu"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "q21",
+          "prefix": "21.",
+          "type": "choice",
+          "required": true,
+          "text": "Ich bin oft frustriert wegen meines Sehvermögens.",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Ich bin oft <u>frustriert</u> wegen meines Sehvermögens.</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Trifft ganz zu"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Trifft weitgehend zu"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Nicht sicher"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Trifft weitgehend nicht zu"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Trifft überhaupt nicht zu"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "q22",
+          "prefix": "22.",
+          "type": "choice",
+          "required": true,
+          "text": "Ich habe wegen meines Sehvermögens viel weniger Kontrolle über das, was ich tue.",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Ich habe wegen meines Sehvermögens <u>viel weniger Kontrolle</u> über das, was ich tue.</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Trifft ganz zu"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Trifft weitgehend zu"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Nicht sicher"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Trifft weitgehend nicht zu"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Trifft überhaupt nicht zu"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "q23",
+          "prefix": "23.",
+          "type": "choice",
+          "required": true,
+          "text": "Ich bin wegen meines Sehvermögens viel zu sehr darauf angewiesen, was andere Menschen mir erzählen.",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Ich bin wegen meines Sehvermögens <u>viel zu sehr darauf angewiesen, was andere Menschen mir erzählen</u>.</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Trifft ganz zu"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Trifft weitgehend zu"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Nicht sicher"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Trifft weitgehend nicht zu"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Trifft überhaupt nicht zu"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "q24",
+          "prefix": "24.",
+          "type": "choice",
+          "required": true,
+          "text": "Ich brauche wegen meines Sehvermögens viel Hilfe von anderen Menschen.",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Ich <u>brauche</u> wegen meines Sehvermögens <u>viel Hilfe</u> von anderen Menschen.</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Trifft ganz zu"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Trifft weitgehend zu"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Nicht sicher"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Trifft weitgehend nicht zu"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Trifft überhaupt nicht zu"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "q25",
+          "prefix": "25.",
+          "type": "choice",
+          "required": true,
+          "text": "Ich mache mir Sorgen darüber, dass ich wegen meines Sehvermögens etwas tun könnte, was mich oder andere in Verlegenheit bringt.",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Ich mache mir Sorgen darüber, dass ich wegen meines Sehvermögens <u>etwas tun könnte, was mich oder andere in Verlegenheit bringt</u>.</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Trifft ganz zu"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Trifft weitgehend zu"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Nicht sicher"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Trifft weitgehend nicht zu"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Trifft überhaupt nicht zu"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "appendix",
+      "type": "group",
+      "text": "Anhang mit zusätzlichen optionalen Fragen",
+      "_text": {
+        "extension": [
+          {
+            "url": "http://example.org/4health/StructureDefinition/modification-note",
+            "valueString": "Optional appendix. Items A1 and A2 are not part of the clinic's paper form."
+          }
+        ]
+      },
+      "item": [
+        {
+          "linkId": "a3",
+          "prefix": "A3.",
+          "type": "choice",
+          "required": true,
+          "text": "Wie schwierig ist es für Sie, mit Brille Kleingedrucktes in einem Telefonbuch, auf einer Arzneimittelflasche oder auf rechtlichen Formularen zu lesen?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Wie schwierig ist es für Sie, mit Brille <u>Kleingedrucktes in einem Telefonbuch, auf einer Arzneimittelflasche oder auf rechtlichen Formularen zu lesen</u>?</div>"
+              },
+              {
+                "url": "http://example.org/4health/StructureDefinition/original-text",
+                "valueString": "Würden Sie sagen:"
+              },
+              {
+                "url": "http://example.org/4health/StructureDefinition/modification-note",
+                "valueString": "Removed interviewer phrase 'Würden Sie sagen:' for self-administration."
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Überhaupt nicht schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Ein bisschen schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Mäßig schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Äußerst schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Habe wegen meines Sehvermögens damit aufgehört"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "6",
+                "display": "Habe aus anderen Gründen damit aufgehört oder habe kein Interesse daran"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "a4",
+          "prefix": "A4.",
+          "type": "choice",
+          "required": true,
+          "text": "Wie schwierig ist es für Sie wegen Ihres Sehvermögens herauszufinden, ob Rechnungen, die Sie erhalten, richtig sind?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Wie schwierig ist es für Sie wegen Ihres Sehvermögens <u>herauszufinden, ob Rechnungen, die Sie erhalten, richtig sind</u>?</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Überhaupt nicht schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Ein bisschen schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Mäßig schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Äußerst schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Habe wegen meines Sehvermögens damit aufgehört"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "6",
+                "display": "Habe aus anderen Gründen damit aufgehört oder habe kein Interesse daran"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "a5",
+          "prefix": "A5.",
+          "type": "choice",
+          "required": true,
+          "text": "Wie schwierig ist es für Sie wegen Ihres Sehvermögens, Dinge zu tun wie Rasieren, Ihr Haar stylen oder Schminken?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Wie schwierig ist es für Sie wegen Ihres Sehvermögens, Dinge zu tun wie <u>Rasieren, Ihr Haar stylen oder Schminken</u>?</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Überhaupt nicht schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Ein bisschen schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Mäßig schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Äußerst schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Habe wegen meines Sehvermögens damit aufgehört"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "6",
+                "display": "Habe aus anderen Gründen damit aufgehört oder habe kein Interesse daran"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "a6",
+          "prefix": "A6.",
+          "type": "choice",
+          "required": true,
+          "text": "Wie schwierig ist es für Sie wegen Ihres Sehvermögens, Ihnen bekannte Leute quer über den Raum zu erkennen?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Wie schwierig ist es für Sie wegen Ihres Sehvermögens, <u>Ihnen bekannte Leute quer über den Raum zu erkennen</u>?</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Überhaupt nicht schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Ein bisschen schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Mäßig schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Äußerst schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Habe wegen meines Sehvermögens damit aufgehört"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "6",
+                "display": "Habe aus anderen Gründen damit aufgehört oder habe kein Interesse daran"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "a7",
+          "prefix": "A7.",
+          "type": "choice",
+          "required": true,
+          "text": "Wie schwierig ist es für Sie wegen Ihres Sehvermögens, aktiv sportlichen oder anderen Aktivitäten im Freien nachzugehen, die Ihnen gefallen (wie Golf, Bowling, Joggen, Spazierengehen)?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Wie schwierig ist es für Sie wegen Ihres Sehvermögens, <u>aktiv sportlichen oder anderen Aktivitäten im Freien nachzugehen, die Ihnen gefallen</u> (wie Golf, Bowling, Joggen, Spazierengehen)?</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Überhaupt nicht schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Ein bisschen schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Mäßig schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Äußerst schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Habe wegen meines Sehvermögens damit aufgehört"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "6",
+                "display": "Habe aus anderen Gründen damit aufgehört oder habe kein Interesse daran"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "a8",
+          "prefix": "A8.",
+          "type": "choice",
+          "required": true,
+          "text": "Wie schwierig ist es für Sie wegen Ihres Sehvermögens, Programme im Fernsehen anzuschauen und Freude daran zu haben?",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Wie schwierig ist es für Sie wegen Ihres Sehvermögens, <u>Programme im Fernsehen anzuschauen und Freude daran zu haben</u>?</div>"
+              }
+            ]
+          },
+          "answerOption": [
+            {
+              "valueCoding": {
+                "code": "1",
+                "display": "Überhaupt nicht schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "2",
+                "display": "Ein bisschen schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "3",
+                "display": "Mäßig schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "4",
+                "display": "Äußerst schwierig"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "5",
+                "display": "Habe wegen meines Sehvermögens damit aufgehört"
+              }
+            },
+            {
+              "valueCoding": {
+                "code": "6",
+                "display": "Habe aus anderen Gründen damit aufgehört oder habe kein Interesse daran"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "outro",
+      "type": "display",
+      "text": "Sie sind jetzt am Ende des Fragebogens angelangt. Wir danken Ihnen sehr für Ihre Zeit und Ihre Mithilfe.",
+      "_text": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+            "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Sie sind jetzt am Ende des Fragebogens angelangt. Wir danken Ihnen sehr für Ihre Zeit und Ihre Mithilfe.</div>"
+          },
+          {
+            "url": "http://example.org/4health/StructureDefinition/original-text",
+            "valueString": "Wir sind jetzt am Ende des Interviews angelangt. Ich danke Ihnen sehr für Ihre Zeit und Ihre Mithilfe."
+          },
+          {
+            "url": "http://example.org/4health/StructureDefinition/modification-note",
+            "valueString": "Reworded for self-administration."
+          }
+        ]
+      }
+    }
+  ]
+}
