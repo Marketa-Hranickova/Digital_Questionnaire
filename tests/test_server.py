@@ -170,6 +170,20 @@ def test_wrong_pin_rejected(client):
     assert c.get("/api/records/P0012/pdf").status_code == 401
 
 
+def test_staff_check(client):
+    c, _ = client
+    assert c.post("/api/staff/check", headers={"X-Staff-Pin": PIN}).status_code == 204
+    assert c.post("/api/staff/check", headers={"X-Staff-Pin": "000000"}).status_code == 401
+    assert c.post("/api/staff/check").status_code == 401
+
+
+def test_staff_check_counts_towards_lockout():
+    c, _ = make_client(max_pin_attempts=3)
+    for _ in range(3):
+        c.post("/api/staff/check", headers={"X-Staff-Pin": "111111"})
+    assert c.post("/api/staff/check", headers={"X-Staff-Pin": PIN}).status_code == 429
+
+
 def test_pin_lockout_after_repeated_failures():
     c, _ = make_client(max_pin_attempts=3)
     for _ in range(3):

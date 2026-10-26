@@ -41,10 +41,28 @@ class MockRedcap:
     def export_pdf(self, pid):
         if pid not in self.records:
             raise RedcapError("record not found")
-        # Minimal placeholder PDF so the frontend download flow can be tested
-        text = f"MOCK VFQ-25 {pid}".encode()
-        return (b"%PDF-1.4\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj\n"
-                b"2 0 obj<</Type/Pages/Count 0/Kids[]>>endobj\n% " + text + b"\n%%EOF\n")
+        return _mock_pdf(pid)
+
+
+def _mock_pdf(pid):
+    """Valid one-page placeholder PDF, so viewers can open it while testing the download flow."""
+    stream = (f"BT /F1 18 Tf 72 760 Td (MOCK VFQ-25 record {pid}) Tj 0 -28 Td /F1 11 Tf "
+              "(Placeholder from the mock server, not the REDCap PDF.) Tj ET").encode()
+    objs = [b"<</Type/Catalog/Pages 2 0 R>>",
+            b"<</Type/Pages/Count 1/Kids[3 0 R]>>",
+            b"<</Type/Page/Parent 2 0 R/MediaBox[0 0 595 842]"
+            b"/Resources<</Font<</F1 4 0 R>>>>/Contents 5 0 R>>",
+            b"<</Type/Font/Subtype/Type1/BaseFont/Helvetica>>",
+            b"<</Length %d>>stream\n" % len(stream) + stream + b"\nendstream"]
+    out, offsets = b"%PDF-1.4\n", []
+    for i, body in enumerate(objs, 1):
+        offsets.append(len(out))
+        out += b"%d 0 obj\n" % i + body + b"\nendobj\n"
+    xref = len(out)  # byte offset of the cross-reference table
+    out += b"xref\n0 %d\n0000000000 65535 f \n" % (len(objs) + 1)
+    out += b"".join(b"%010d 00000 n \n" % o for o in offsets)
+    out += b"trailer<</Size %d/Root 1 0 R>>\nstartxref\n%d\n%%%%EOF\n" % (len(objs) + 1, xref)
+    return out
 
 
 class RealRedcap:

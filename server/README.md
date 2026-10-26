@@ -12,7 +12,7 @@ iPad UI ──HTTPS──> proxy (this server, holds token) ──HTTPS──> R
 ```bash
 pip install -r server/requirements.txt
 STAFF_PIN=482913 uvicorn server.app:app --reload --port 8080
-python3 -m pytest tests/          # 46 tests: converter + server
+python3 -m pytest tests/          # 48 tests: converter + server
 ```
 
 `REDCAP_MODE=mock` (default) keeps records in memory and returns a placeholder PDF.
@@ -25,6 +25,7 @@ or a PIN shorter than 6 digits.
 | Method + path | Who | Auth | Body / result |
 |---|---|---|---|
 | `POST /api/sessions` | staff, on the iPad | header `X-Staff-Pin` | `{"pid":"P0012","include_appendix":false,"skip_q1":false}` → `201 {"token","expires_in"}` |
+| `POST /api/staff/check` | staff, before the review | header `X-Staff-Pin` | `204` if the PIN is right, `401`/`429` otherwise |
 | `POST /api/responses` | patient UI | header `Authorization: Bearer <token>` | FHIR QuestionnaireResponse → `201 {"stored":true,"answers":n}` |
 | `GET /api/records/{pid}/pdf` | staff | header `X-Staff-Pin` | PDF for the hospital record |
 | `GET /api/health` | anyone | none | `{"status":"ok","mode":"mock"}` |

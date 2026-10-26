@@ -21,7 +21,13 @@ const SCHEMES = [['light', 'Schwarz auf Weiß'], ['dark', 'Weiß auf Schwarz'], 
 const RATES = [0.8, 1, 1.2];
 const RATE_LABELS = ['Langsamer', 'Normal', 'Schneller'];
 
+// Set this to the real server address when deploying (e.g. 'https://vfq.example.at').
+// When set, ?api= and the address field are ignored, so a crafted link cannot send the
+// PIN and answers to another server. Leave empty for local development.
+const DEPLOYED_API = '';
+
 function defaultApi() {
+  if (DEPLOYED_API) return DEPLOYED_API;
   if (params.get('api')) return params.get('api');
   if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') return 'http://localhost:8080';
   return '';
@@ -314,9 +320,9 @@ V.staff = () => `<main class="screen">
     <label class="check"><input type="checkbox" id="appendix" name="appendix" ${S.includeAppendix ? 'checked' : ''}> Anhang A3 bis A8 einbeziehen</label>
     <label class="check"><input type="checkbox" id="skipq1" name="skipq1" ${S.skipQ1 ? 'checked' : ''}> Frage 1 überspringen (bei gleichzeitigem SF-36)</label>
     <label class="check"><input type="checkbox" id="demo" name="demo" ${S.demo ? 'checked' : ''}> Demo ohne Server (nichts wird gespeichert)</label>
-    <div class="field"><label for="api">Server-Adresse</label>
+    ${DEPLOYED_API ? `<p class="small" id="api-hint" role="status">${esc(S.health || '')}</p>` : `<div class="field"><label for="api">Server-Adresse</label>
       <input type="url" id="api" name="api" value="${esc(S.api)}" placeholder="https://…" autocomplete="off" spellcheck="false" aria-describedby="api-hint">
-      <span class="small" id="api-hint" role="status">${esc(S.health || 'Im Demo-Modus nicht nötig.')}</span></div>
+      <span class="small" id="api-hint" role="status">${esc(S.health || 'Im Demo-Modus nicht nötig.')}</span></div>`}
     <button type="button" class="btn btn-ghost" data-act="health" data-key="health">Verbindung prüfen</button>
     <div class="field"><label for="pin">Personal-PIN</label>
       <input type="password" id="pin" name="pin" inputmode="numeric" autocomplete="off" aria-describedby="pin-hint">
@@ -542,7 +548,7 @@ async function startSession(form) {
   S.includeAppendix = form.appendix.checked;
   S.skipQ1 = form.skipq1.checked;
   S.demo = form.demo.checked;
-  S.api = form.api.value.trim();
+  if (!DEPLOYED_API) S.api = form.api.value.trim();
   const pin = form.pin.value;
   if (S.demo && !S.pid) S.pid = 'P0000';
   if (!PID_RE.test(S.pid)) { S.error = 'Patientencode bitte im Format P0012 (P und 4 bis 6 Ziffern), keine Namen.'; render(); return; }
@@ -559,11 +565,9 @@ async function checkPin(form) {
   const pin = form.pin.value;
   if (S.demo) { go('review'); return; }
   S.busy = true; S.error = null; render();
-  // No dedicated PIN endpoint yet: the PDF endpoint answers 401/429 for a wrong PIN and
-  // 404 (no record yet) or 200 for a correct one. See frontend/README.md, "Open points".
-  const r = await api(`/api/records/${encodeURIComponent(S.pid)}/pdf`, { headers: { 'X-Staff-Pin': pin } });
+  const r = await api('/api/staff/check', { method: 'POST', headers: { 'X-Staff-Pin': pin } });
   S.busy = false;
-  if (r.status === 404 || r.status === 200) { S.pin = pin; go('review'); return; }
+  if (r.status === 204) { S.pin = pin; go('review'); return; }
   S.error = errText(r); render();
 }
 async function send() {
@@ -579,6 +583,12 @@ async function send() {
     if (s.status === 201 && s.body && s.body.token) { S.token = s.body.token; r = await post(); }
   }
   S.busy = false;
+  if (r.status === 401) {
+    // Session could not be renewed (e.g. server restarted with another PIN): ask again
+    S.pin = null; go('staffPin');
+    S.error = 'Sitzung abgelaufen. Bitte PIN erneut eingeben und dann noch einmal senden.'; render();
+    return;
+  }
   if (r.status === 201) {
     S.stored = r.body && r.body.answers ? r.body.answers : 0;
     S.token = null; S.answers = {};
@@ -602,7 +612,7 @@ function restart() {
 }
 async function checkHealth() {
   const input = document.getElementById('api');
-  if (input) S.api = input.value.trim();
+  if (input && !DEPLOYED_API) S.api = input.value.trim();
   S.health = 'Prüfe …'; render();
   const r = await api('/api/health', {});
   S.health = r.status === 200 && r.body ? `Verbunden (Modus: ${r.body.mode}).` : 'Keine Verbindung. ' + errText(r);
@@ -618,7 +628,7 @@ document.addEventListener('submit', (e) => {
 document.addEventListener('input', (e) => {
   const t = e.target;
   if (t.id === 'pid') S.pid = t.value;
-  else if (t.id === 'api') S.api = t.value;
+  else if (t.id === 'api' && !DEPLOYED_API) S.api = t.value;
   else if (t.id === 'appendix') S.includeAppendix = t.checked;
   else if (t.id === 'skipq1') S.skipQ1 = t.checked;
   else if (t.id === 'demo') S.demo = t.checked;
@@ -671,7 +681,8 @@ document.addEventListener('click', (e) => {
     case 'to-staff': toReview(); break;
     case 'back-finished': go('finished'); break;
     case 'change': {
-      S.fromReview = true; S.error = null;
+      // The iPad goes back to the patient: forget the PIN so the review asks for it again
+      S.pin = null; S.fromReview = true; S.error = null;
       const step = flow().find((s) => s.item.linkId === v);
       if (step) showStep(step, { withAnswer: true });
       break; }

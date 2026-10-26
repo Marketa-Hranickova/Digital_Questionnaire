@@ -2,6 +2,7 @@
 
 Endpoints:
     POST /api/sessions                  staff PIN + patient code -> one-time session token
+    POST /api/staff/check               staff PIN check before the review screen (204)
     POST /api/responses                 patient UI submits a QuestionnaireResponse (Bearer token)
     GET  /api/records/{pid}/pdf         staff downloads the PDF (X-Staff-Pin header)
     GET  /api/health                    liveness check, no data
@@ -99,6 +100,12 @@ def create_app(settings=None, redcap=None):
                                            "skip_q1": body.skip_q1})
         log.info("session started for %s", pid_ref(body.pid))
         return {"token": token, "expires_in": settings.session_ttl_seconds}
+
+    @app.post("/api/staff/check", status_code=204)
+    def staff_check(x_staff_pin: str = Header(default="")):
+        # Only answers "PIN ok" (204), 401 or 429; reveals nothing about records
+        require_pin(x_staff_pin)
+        return Response(status_code=204)
 
     @app.post("/api/responses", status_code=201)
     async def submit(request: Request, authorization: str = Header(default="")):

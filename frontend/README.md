@@ -21,6 +21,8 @@ python3 -m http.server 8000
 
 Open <http://localhost:8000/frontend/>. The server address defaults to
 `http://localhost:8080`; another one can be passed as `?api=https://…`.
+**For deployment** set `DEPLOYED_API` at the top of `app.js`: then `?api=` and the address field
+are ignored, so a crafted link cannot redirect the PIN and answers to another server.
 Opening `index.html` as a file does not work, because the browser blocks loading
 `questionnaire.json` from disk.
 
@@ -47,10 +49,13 @@ behind HTTPS too.
    `<u>` and `<br>` are allowed through). Weiter stays disabled until an answer is chosen.
    `enableWhen` branching; answers of items that become hidden are deleted.
    "Pflege rufen" and "Einstellungen" on every screen. Keyboard: 1–6 answer, R repeats.
-5. **Staff review:** PIN again, all answers, missing ones highlighted, "Ändern" jumps back
-   (and returns to the review afterwards, or to a newly enabled follow-up first).
+5. **Staff review:** PIN again (`POST /api/staff/check`), all answers, missing ones highlighted,
+   "Ändern" jumps back (and returns to the review afterwards, or to a newly enabled follow-up
+   first). "Ändern" forgets the PIN, so if the iPad goes back to the patient, the review asks
+   for it again.
 6. **Send:** `POST /api/responses`. On `401` (session expired) it opens a new session with the
-   review PIN and retries once; `422` and `502` keep the answers so staff can fix or resend.
+   review PIN and retries once; if that fails too, it asks for the PIN again. `422` and `502`
+   keep the answers so staff can fix or resend.
 7. **Done:** PDF from `GET /api/records/{pid}/pdf`, then "Nächste Person starten" wipes
    everything, including the patient's display settings.
 
@@ -69,9 +74,6 @@ phone width. **Not yet tested on a real iPad with Safari and VoiceOver.**
 
 ## Open points
 
-- **PIN check before the review screen:** there is no dedicated endpoint, so the UI calls the
-  PDF endpoint (`404` = PIN correct, no record yet; `401`/`429` = wrong). A small
-  `POST /api/staff/check` on the server would be cleaner and keep 404s out of the logs.
 - **Wording to check in `questionnaire.json`:** Q15 still starts with the interviewer phrase
   "Jetzt möchte ich Ihnen einige Fragen … stellen"; Q4 ends with "haben sie?" (lower-case *sie*).
 - **Offline:** the questionnaire is loaded once; answers are lost if the page is reloaded.

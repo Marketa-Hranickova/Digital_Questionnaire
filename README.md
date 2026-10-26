@@ -13,7 +13,7 @@ described in `server/README.md`.
 | `tools/fhir_to_redcap.py` | Generates the REDCap data dictionary from `questionnaire.json` |
 | `redcap/vfq25_data_dictionary.csv` | Generated data dictionary, ready to import into REDCap |
 | `server/` | Proxy server between the iPad and REDCap (FastAPI): sessions, validation, REDCap API |
-| `tests/` | 46 automated tests for the converter and the server |
+| `tests/` | 48 automated tests for the converter and the server |
 | `TASKS.md` | Task split for the whole team |
 
 ## Quick start
