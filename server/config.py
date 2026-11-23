@@ -1,7 +1,7 @@
 """Server configuration, read only from environment variables (never from code).
 
-Secrets (REDCap token, staff PIN) must come from the environment or a .env file that is
-NOT committed to Git (see .env.example and .gitignore).
+Secrets (REDCap token, staff PIN) must come from the environment, for example by loading a
+settings file outside the repository with `source` (see server/README.md). Never commit them.
 """
 import os
 import re

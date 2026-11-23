@@ -15,10 +15,52 @@ STAFF_PIN=482913 uvicorn server.app:app --reload --port 8080
 python3 -m pytest tests/          # 48 tests: converter + server
 ```
 
-`REDCAP_MODE=mock` (default) keeps records in memory and returns a placeholder PDF.
-Switch to the real API with `REDCAP_MODE=redcap`, `REDCAP_API_URL` and `REDCAP_API_TOKEN`
-(see `.env.example`). The server refuses to start with a non-HTTPS URL, a malformed token
-or a PIN shorter than 6 digits.
+`REDCAP_MODE=mock` (default) keeps records in memory and returns a one-page placeholder PDF.
+The server refuses to start with a non-HTTPS URL, a malformed token or a PIN shorter than
+6 digits.
+
+## Connect to the real REDCap
+
+1. **Project:** import `redcap/vfq25_data_dictionary.csv` (*Project Setup → Dictionary*) and
+   switch off *Auto-numbering for records*. Your user needs the rights *API Export* and
+   *API Import/Update* (*User Rights*), then create the token on the project's *API* page.
+   The token belongs to one project and one user.
+2. **Settings file outside the repository**, for example `~/vfq25.env`:
+   ```bash
+   export REDCAP_MODE=redcap
+   export REDCAP_API_URL=https://<redcap-host>/api/
+   export REDCAP_API_TOKEN=<32-character token>
+   ```
+   `<redcap-host>` is the host name shown in the browser while you use REDCap (the API address
+   is that host plus `/api/`). The server does **not** read `.env` files; it only reads
+   environment variables, so load the file with `source`.
+3. **Check the address without a token:** the right address answers with HTTP 403, a wrong
+   path with 404:
+   ```bash
+   source ~/vfq25.env
+   curl -s -o /dev/null -w "%{http_code}\n" -d "content=version" "$REDCAP_API_URL"
+   curl -s -o /dev/null -w "%{http_code}\n" -d "content=version" "${REDCAP_API_URL}xyz"
+   ```
+4. **Check the token** (this prints project information, not the token):
+   ```bash
+   curl -sS --http1.1 -d "token=$REDCAP_API_TOKEN" -d content=project -d format=json "$REDCAP_API_URL"
+   ```
+   `--http1.1` matters: with the default HTTP/2, current curl versions fail on this server with
+   "Invalid HTTP header field ... upgrade" (error 92), although the request itself succeeded.
+5. **Start the server** in the same terminal:
+   ```bash
+   source ~/vfq25.env
+   STAFF_PIN=482913 ALLOWED_ORIGINS=http://localhost:8000 uvicorn server.app:app --port 8080
+   ```
+   `GET /api/health` then reports `"mode":"redcap"`.
+
+Never commit or paste the token anywhere (chat, screenshots, issues). If it was exposed,
+use *Regenerate token* on the API page and update your settings file.
+
+Typical errors: `502` from `/api/responses` with `REDCap returned HTTP 403` in the server log
+means REDCap rejected the token (wrong or old token, or wrong host); the response
+`{"error":"You do not have permissions to use the API"}` comes from REDCap and has the same
+causes. The API Playground inside REDCap shows quickly whether a token works.
 
 ## API (contract for the frontend)
 
@@ -35,8 +77,8 @@ patient answers → UI posts the QuestionnaireResponse it already builds → tok
 A rejected submission (`422`) keeps the session open so the answers can be fixed and resent;
 a REDCap outage (`502`) also keeps it open for a retry.
 
-**Frontend change needed:** the server accepts patient codes only as `P` + 4–6 digits
-(`PID_PATTERN`). The staff screen in the frontend must accept the same format;
+**Keep in sync:** the server accepts patient codes only as `P` + 4–6 digits (`PID_PATTERN`).
+The staff screen in `frontend/` uses the same pattern; if one side changes, change the other,
 otherwise the server rejects the session with 422.
 
 ## Security decisions

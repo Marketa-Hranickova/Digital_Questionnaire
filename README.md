@@ -1,9 +1,10 @@
-# VFQ-25 digital – backend, data and security
+# VFQ-25 digital
 
-Backend part of the 4Health Problem 3 project (digital NEI VFQ-25 for the
-Univ.-Augenklinik Graz). This repository covers data, server and security (Person B).
-The iPad interface is built separately by Person A and talks to this server over the API
-described in `server/README.md`.
+4Health Problem 3: a digital, accessible version of the NEI VFQ-25 visual function
+questionnaire for the Univ.-Augenklinik Graz. The repository holds the questionnaire
+definition, the proxy server that stores answers in REDCap (Person B: data, server, security)
+and the iPad interface (Person A). The interface talks to the server over the API described
+in `server/README.md`.
 
 ## Contents
 
@@ -13,6 +14,8 @@ described in `server/README.md`.
 | `tools/fhir_to_redcap.py` | Generates the REDCap data dictionary from `questionnaire.json` |
 | `redcap/vfq25_data_dictionary.csv` | Generated data dictionary, ready to import into REDCap |
 | `server/` | Proxy server between the iPad and REDCap (FastAPI): sessions, validation, REDCap API |
+| `frontend/` | iPad interface that works with the server (see `frontend/README.md`) |
+| `patient-interface/` | Newer accessible patient interface (single page, work in progress, not yet connected to the server) |
 | `tests/` | 48 automated tests for the converter and the server |
 | `TASKS.md` | Task split for the whole team |
 
@@ -25,7 +28,9 @@ STAFF_PIN=482913 uvicorn server.app:app --reload --port 8080    # server with mo
 python3 tools/fhir_to_redcap.py questionnaire.json redcap/vfq25_data_dictionary.csv
 ```
 
-Copy `.env.example` to `.env` for local settings. Never commit `.env`.
+The server reads its settings only from environment variables. For the real REDCap, keep them
+in a file **outside** the repository and never commit them; see "Connect to the real REDCap"
+in `server/README.md`.
 
 ## Questionnaire definition
 
@@ -47,7 +52,9 @@ Copy `.env.example` to `.env` for local settings. Never commit `.env`.
 switchable). Choice → `radio`, display → `descriptive`, `enableWhen` → branching logic such as
 `[q15] = '1'`, modification notes → Field Annotation. The closing sentence is printed for
 *Survey Settings → Survey completion text*. Import via *Project Setup → Data Dictionary*;
-use `--no-html` if REDCap shows the `<u>` tags as text.
+use `--no-html` if REDCap shows the `<u>` tags as text. **Switch off "Auto-numbering for
+records"** in *Project Setup → Enable optional modules*, so that the pseudonym code (for
+example `P0012`) can be used as record ID.
 
 ## Server and security
 
