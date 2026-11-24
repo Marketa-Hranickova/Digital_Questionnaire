@@ -38,17 +38,21 @@ behind HTTPS too.
    skip Q1, PIN → `POST /api/sessions`. The PIN is not kept after this step.
 2. **Hand-over:** one full-screen "tap anywhere" button. Browsers only allow audio after a touch,
    so this tap is what unlocks read-aloud for blind patients.
-3. **How do you want to answer?** Spoken aloud, three large buttons:
+3. **How do you want to answer?** Spoken aloud, two large buttons and one small one:
    - *Vorlesen*: German speech (Web Speech API, prefers a de-AT voice). Tap an answer once to hear
      it, tap again to choose; the next question is read automatically.
-   - *Eigener Screenreader*: no speech from the page, so it does not talk over VoiceOver.
-     Answers are real radio buttons (`role="radio"`, `aria-checked`).
-   - *Selbst lesen*: display settings first: 4 font sizes, 3 colour themes
-     (black on white, white on black, yellow on black), live preview.
+   - *Selbst lesen*: silent from the first tap (it stops the welcome speech). Display settings
+     first: 4 font sizes, 3 colour themes (black on white, white on black, yellow on black),
+     live preview of a question. To change them later, go back from the first question.
+   - *VoiceOver ist eingeschaltet* (small button at the bottom): no speech from the page, so it
+     does not talk over VoiceOver. Answers are real radio buttons (`role="radio"`, `aria-checked`).
 4. **Questions:** one per screen, underlining from the paper form kept (`rendering-xhtml`, only
-   `<u>` and `<br>` are allowed through). Weiter stays disabled until an answer is chosen.
-   `enableWhen` branching; answers of items that become hidden are deleted.
-   "Pflege rufen" and "Einstellungen" on every screen. Keyboard: 1–6 answer, R repeats.
+   `<u>` and `<br>` are allowed through). Weiter stays disabled until an answer is chosen, so
+   questions cannot be skipped. `enableWhen` branching; answers of items that become hidden are
+   deleted. Every screen has "Pflege rufen" and a large read-aloud switch: *Vorlesen stoppen*
+   turns read-aloud off with one tap (for patients who chose it by mistake), and the same spot
+   turns it back on (*Fragen vorlesen*). No settings panel during the questions.
+   Keyboard: 1–6 answer, R repeats.
 5. **Staff review:** PIN again (`POST /api/staff/check`), all answers, missing ones highlighted,
    "Ändern" jumps back (and returns to the review afterwards, or to a newly enabled follow-up
    first). "Ändern" forgets the PIN, so if the iPad goes back to the patient, the review asks

@@ -15,7 +15,6 @@ in `server/README.md`.
 | `redcap/vfq25_data_dictionary.csv` | Generated data dictionary, ready to import into REDCap |
 | `server/` | Proxy server between the iPad and REDCap (FastAPI): sessions, validation, REDCap API |
 | `frontend/` | iPad interface that works with the server (see `frontend/README.md`) |
-| `patient-interface/` | Newer accessible patient interface (single page, work in progress, not yet connected to the server) |
 | `tests/` | 48 automated tests for the converter and the server |
 | `TASKS.md` | Task split for the whole team |
 
