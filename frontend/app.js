@@ -15,8 +15,8 @@ const params = new URLSearchParams(location.search);
 const QUESTIONNAIRE_URL = params.get('questionnaire') || '../questionnaire.json';
 const PSEUDONYM_SYSTEM = 'urn:4health:pseudonym';
 const PID_RE = /^P[0-9]{4,6}$/;            // must match PID_PATTERN on the server
-const SCALES = [1, 1.2, 1.4, 1.65];
-const SCALE_LABELS = ['Normal', 'Groß', 'Größer', 'Am größten'];
+const SCALES = [1.15, 1.35, 1.55, 1.8];
+const SCALE_LABELS = ['Groß', 'Größer', 'Sehr groß', 'Am größten'];
 const SCHEMES = [['light', 'Schwarz auf Weiß'], ['dark', 'Weiß auf Schwarz'], ['yellow', 'Gelb auf Schwarz']];
 const RATES = [0.8, 1, 1.2];
 const RATE_LABELS = ['Langsamer', 'Normal', 'Schneller'];
@@ -62,6 +62,7 @@ const I = {
   help: svg('<circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>'),
   sliders: svg('<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>'),
   speaker: svg('<path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/>'),
+  mute: svg('<path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M22 9l-6 6M16 9l6 6"/>'),
   phones: svg('<path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"/>')
 };
 
@@ -221,8 +222,8 @@ function speak(text) {
 }
 const tts = () => S.mode === 'audio' && canSpeak;
 const MODE_SPEECH = 'Willkommen. Bitte setzen Sie die Kopfhörer auf. Wie möchten Sie den Fragebogen beantworten? ' +
-  'Oberer Knopf: Ich lese Ihnen die Fragen vor. Mittlerer Knopf: Sie nutzen Ihren eigenen Screenreader. ' +
-  'Unterer Knopf: Sie lesen die Fragen selbst. Tippen Sie einmal, um eine Auswahl zu hören. Tippen Sie noch einmal, um sie zu wählen.';
+  'Oberer Knopf: Ich lese Ihnen die Fragen vor. Mittlerer Knopf: Sie lesen die Fragen selbst. ' +
+  'Kleiner Knopf ganz unten: VoiceOver ist eingeschaltet. Tippen Sie einmal, um eine Auswahl zu hören. Tippen Sie noch einmal, um sie zu wählen.';
 const TAP_AGAIN = 'Noch einmal tippen zum Auswählen';
 
 function stepSpeech(step, o) {
@@ -256,17 +257,16 @@ function applyTheme() {
 }
 
 /* ---------- View pieces ---------- */
-function patientHeader(progress, withBack, noSettings) {
+function patientHeader(progress, withBack) {
   return `<header class="bar">
     ${withBack ? `<button class="btn" data-act="back" data-key="back">${I.back}<span>Zurück</span></button>` : '<span></span>'}
     <div class="bar-actions">
-      ${noSettings ? '' : `<button class="btn" data-act="settings" data-key="settings" aria-expanded="${S.settings}">${I.sliders}<span>Einstellungen</span></button>`}
       <button class="btn btn-help" data-act="nurse" data-key="nurse" aria-pressed="${S.nurse}">${I.help}<span>${S.nurse ? 'Ruf abbrechen' : 'Pflege rufen'}</span></button>
     </div>
   </header>${progress || ''}
   ${S.nurse ? '<div class="banner" role="alert">Eine Pflegekraft kommt. Bitte bleiben Sie, wo Sie sind.</div>' : ''}
   ${S.mode === 'audio' && !canSpeak ? '<div class="error" role="alert">Dieses Tablet kann gerade nicht vorlesen. Bitte tippen Sie auf Pflege rufen.</div>' : ''}
-  ${S.settings ? settingsPanel() : ''}`;
+`;
 }
 function seg(act, items, current) {
   return `<div class="seg">${items.map(([v, label]) =>
@@ -284,18 +284,16 @@ function schemeRow() {
   return `<div class="setrow"><div class="setlabel"><span class="sl-title">Farben</span><span class="sl-sub">Gelb auf Schwarz hilft bei Blendung</span></div>
     ${seg('scheme', SCHEMES, S.scheme)}</div>`;
 }
-function settingsPanel() {
-  return `<section class="panel" aria-labelledby="set-h">
-    <h2 id="set-h">Einstellungen</h2>
-    ${sizeRow()}
-    ${schemeRow()}
-    <div class="setrow"><div class="setlabel"><span class="sl-title">Wie die Fragen gelesen werden</span></div>
-      ${seg('setmode', [['audio', 'Vorlesen'], ['sr', 'Mein Screenreader'], ['visual', 'Selbst lesen']], S.mode)}</div>
-    <div class="setrow"><div class="setlabel"><span class="sl-title">Lesetempo</span></div>
-      ${seg('speed', RATE_LABELS.map((l, i) => [i, l]), RATES.indexOf(S.rate))}</div>
-    <p class="small">Mit Tastatur: Ziffern 1 bis 6 wählen eine Antwort, R liest die Frage noch einmal vor.</p>
-    <button class="btn btn-accent" data-act="settings" data-key="close-settings">Einstellungen schließen</button>
-  </section>`;
+
+/** Read-aloud on/off on every question. Stop switches to reading silently, so a patient who chose
+ *  read-aloud by mistake gets out with one tap; the same spot turns it back on. */
+function readRow(withRepeat) {
+  if (S.mode === 'sr') return '';
+  const audio = S.mode === 'audio';
+  return `<div class="readrow">
+    <button class="btn btn-read ${audio ? 'on' : ''}" data-act="readtoggle" data-key="readtoggle">${audio ? I.mute : I.speaker}<span>${audio ? 'Vorlesen stoppen' : 'Fragen vorlesen'}</span></button>
+    ${audio && withRepeat ? `<button class="btn" data-act="repeat" data-key="repeat">${I.speaker}<span>${withRepeat}</span></button>` : ''}
+  </div>`;
 }
 
 /* ---------- Views ---------- */
@@ -344,8 +342,8 @@ V.handover = () => `<main class="screen">
 V.mode = () => {
   const modes = {
     audio: ['Lesen Sie mir die Fragen vor', 'Über die Kopfhörer. Wenn Lesen schwerfällt.', 'zone-a'],
-    sr: ['Ich nutze meinen eigenen Screenreader', 'VoiceOver ist bereits eingeschaltet', 'zone-b'],
-    visual: ['Ich lese die Fragen selbst', 'Danach können Sie Schrift und Farben anpassen', 'zone-c']
+    visual: ['Ich lese die Fragen selbst', 'Danach können Sie Schrift und Farben anpassen', 'zone-b'],
+    sr: ['VoiceOver ist eingeschaltet', 'Für Menschen mit eigenem Screenreader', 'zone-c zone-slim']
   };
   return `<main class="screen"><h1>Wie möchten Sie den Fragebogen beantworten?</h1>
   ${Object.keys(modes).map((m) => `<button class="zone ${modes[m][2]} ${S.armed === 'mode-' + m ? 'armed' : ''}" data-act="mode" data-v="${m}" data-key="mode-${m}">
@@ -356,12 +354,11 @@ V.mode = () => {
 
 V.display = () => `<main class="screen">
   ${patientHeader('', true, true)}
-  <div class="stack"><h1>So lesen Sie am besten</h1><p class="lede">Wählen Sie, was Ihnen hilft. Sie können es später unter Einstellungen ändern.</p></div>
+  <div class="stack"><h1>So lesen Sie am besten</h1><p class="lede">Wählen Sie, was Ihnen hilft.</p></div>
   ${sizeRow()}
   ${schemeRow()}
-  <div class="preview" aria-hidden="true"><span class="pv-label">Vorschau</span>
-    <span class="pv-q">Wie oft machen Sie sich <u>Sorgen</u> um Ihr Sehvermögen?</span>
-    <div class="pv-opts"><span class="pv-opt">Nie</span><span class="pv-opt">Manchmal</span></div></div>
+  <div class="preview" aria-hidden="true"><span class="pv-label">Vorschau: so groß werden die Fragen</span>
+    <span class="pv-q">Wie oft machen Sie sich <u>Sorgen</u> um Ihr Sehvermögen?</span></div>
   <div class="footer"><button class="btn btn-primary" data-act="begin" data-key="begin">Fragebogen beginnen${I.next}</button></div>
 </main>`;
 
@@ -384,8 +381,8 @@ V.item = () => {
     const nextArmed = S.armed === 'next';
     return `<main class="screen">${patientHeader(progress, true)}
       <h1 id="qh">${esc(title)}</h1>
+      ${readRow('Noch einmal vorlesen')}
       <p class="body-text">${richText(it)}</p>
-      ${S.mode !== 'sr' ? `<button class="btn btn-ghost" data-act="repeat" data-key="repeat">${I.speaker}<span>${audio ? 'Noch einmal vorlesen' : 'Vorlesen'}</span></button>` : ''}
       <div class="footer"><button class="btn btn-primary ${audio ? 'btn-huge' : ''} ${nextArmed ? 'armed' : ''}" data-act="next" data-key="next">${nextArmed ? TAP_AGAIN : 'Weiter'}${I.next}</button></div>
     </main>`;
   }
@@ -394,10 +391,10 @@ V.item = () => {
   const lastChoice = !f.slice(i + 1).some((s) => s.kind === 'choice');
   const nextLabel = S.fromReview ? 'Zurück zur Übersicht' : (lastChoice ? 'Fertig' : 'Weiter');
   return `<main class="screen">${patientHeader(progress, true)}
+    ${readRow('Frage wiederholen')}
     <div class="stack">
       <span class="qnum">Frage ${esc(qNumber(it))}</span>
       <h1 id="qh">${richText(it)}</h1>
-      ${S.mode !== 'sr' ? `<button class="btn btn-ghost" data-act="repeat" data-key="repeat">${I.speaker}<span>${audio ? 'Frage wiederholen' : 'Vorlesen'}</span></button>` : ''}
     </div>
     <div class="opts" role="radiogroup" aria-labelledby="qh">
       ${(it.answerOption || []).map((o, k) => {
@@ -486,7 +483,7 @@ function render() {
     if (el && !el.disabled) { try { el.focus({ preventScroll: true }); } catch (e) {} }
   }
 }
-function go(screen) { S.screen = screen; S.armed = null; S.error = null; S.focusHeading = true; render(); }
+function go(screen) { S.screen = screen; S.armed = null; S.settings = false; S.error = null; S.focusHeading = true; render(); }
 
 /* ---------- Patient navigation ---------- */
 function showStep(step, sayOpts) {
@@ -646,7 +643,8 @@ document.addEventListener('click', (e) => {
       if (S.armed === key) { S.armed = null; chooseMode(v); }
       else {
         S.armed = key; render();
-        const say = { audio: 'Lesen Sie mir die Fragen vor', sr: 'Ich nutze meinen eigenen Screenreader', visual: 'Ich lese die Fragen selbst' }[v];
+        if (v === 'visual') { stopSpeech(); break; }   // silent from the first tap
+        const say = { audio: 'Lesen Sie mir die Fragen vor', sr: 'VoiceOver ist eingeschaltet' }[v];
         speak(say + '. ' + TAP_AGAIN + '.');
       }
       break; }
@@ -662,10 +660,10 @@ document.addEventListener('click', (e) => {
       break; }
     case 'back': back(); break;
     case 'repeat': { const { step } = position(); speak(stepSpeech(step, { withAnswer: true, how: S.mode === 'audio' && step.kind === 'choice' })); break; }
-    case 'settings': {
-      S.settings = !S.settings; S.armed = null; render();
-      if (S.settings) { const b = $app.querySelector('.panel button'); if (b) b.focus(); }
-      else if (S.screen === 'item' && tts()) { const { step } = position(); speak(stepSpeech(step, { withAnswer: true })); }
+    case 'readtoggle': {
+      const { step } = position(); S.armed = null;
+      if (S.mode === 'audio') { S.mode = 'visual'; render(); speak('Vorlesen ist aus.'); }
+      else { S.mode = 'audio'; render(); speak(stepSpeech(step, { withAnswer: true, how: step.kind === 'choice' })); }
       break; }
     case 'nurse':
       S.nurse = !S.nurse; render();
@@ -673,11 +671,6 @@ document.addEventListener('click', (e) => {
       break;
     case 'size': S.scale = Math.max(0, Math.min(SCALES.length - 1, S.scale + Number(v))); applyTheme(); render(); break;
     case 'scheme': S.scheme = v; applyTheme(); render(); break;
-    case 'setmode':
-      S.mode = v; S.armed = null; render();
-      if (v !== 'audio') stopSpeech();
-      break;
-    case 'speed': S.rate = RATES[Number(v)]; render(); if (S.mode !== 'sr') speak(RATE_LABELS[Number(v)]); break;
     case 'to-staff': toReview(); break;
     case 'back-finished': go('finished'); break;
     case 'change': {
